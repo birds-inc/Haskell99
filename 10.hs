@@ -3,7 +3,8 @@
 
 encode :: (Show a, Eq a) => [a] -> [(Int, a)]
 encode xs = 
-    let encoder [] x = [(1, x)]
+    let encoder :: (Show a, Eq a) => [(Int, a)] -> a -> [(Int, a)]
+        encoder [] x = [(1, x)]
         encoder ((n, y):ys) x
             | y == x = (n + 1, y):ys
             | otherwise = (1, x):(n, y):ys
