@@ -3,12 +3,12 @@
 
 encode :: (Show a, Eq a) => [a] -> [(Int, a)]
 encode xs = 
-    let encoder :: (Show a, Eq a) => [(Int, a)] -> a -> [(Int, a)]
-        encoder [] x = [(1, x)]
-        encoder ((n, y):ys) x
+    let encoder :: (Show a, Eq a) => a -> [(Int, a)] -> [(Int, a)]
+        encoder x [] = [(1, x)]
+        encoder x ((n, y):ys)
             | y == x = (n + 1, y):ys
             | otherwise = (1, x):(n, y):ys
-    in reverse $ foldl encoder [] xs
+    in foldr encoder [] xs
 
 main = do
     let list = "aaaabccaadeeee"
